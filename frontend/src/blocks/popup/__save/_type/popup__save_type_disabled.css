@@ -1,0 +1,11 @@
+.popup__save_type_disabled {
+  color: #000000;
+  background-color: white;
+  border: 1px solid black;
+  opacity: 0.2;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

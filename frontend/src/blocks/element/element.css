@@ -1,0 +1,11 @@
+.element {
+  margin: 0px;
+  padding: 0px;
+  background-color: white;
+  border-radius: 10px;
+  max-width: 282px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}

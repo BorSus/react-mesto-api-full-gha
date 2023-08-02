@@ -1,0 +1,94 @@
+/*========import styles normalize======*/
+@import url(./vendor/normalize.css);
+
+/*========import styles fonts======*/
+@import url(./vendor/fonts/fonts.css);
+
+/*========import styles body-page======*/
+@import url(./blocks/page/page.css);
+@import url(./blocks/page/_wait/page_wait.css);
+
+/*========import styles header======*/
+@import url(./blocks/header/header.css);
+@import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__link/header__link.css);
+
+/*========import styles content======*/
+@import url(./blocks/content/content.css);
+
+/*========import styles profile======*/
+@import url(./blocks/profile/profile.css);
+@import url(./blocks/profile/__add-button/profile__add-button.css);
+@import url(./blocks/profile/__avatar/profile__avatar.css);
+@import url(./blocks/profile/__description/profile__description.css);
+@import url(./blocks/profile/__edit/profile__edit.css);
+@import url(./blocks/profile/__edite-button/profile__edite-button.css);
+@import url(./blocks/profile/__info/profile__info.css);
+@import url(./blocks/profile/__name/profile__name.css);
+@import url(./blocks/profile/__avatar-edite/profile__avatar-edite.css);
+
+/*========import styles elements======*/
+@import url(./blocks/elements/elements.css);
+
+/*========import styles element======*/
+@import url(./blocks/element/element.css);
+@import url(./blocks/element/__caption/element__caption.css);
+@import url(./blocks/element/__img/element__img.css);
+@import url(./blocks/element/__label/element__label.css);
+@import url(./blocks/element/__like/element__like.css);
+@import url(./blocks/element/__like/_active/element__like_active.css);
+@import url(./blocks/element/__delete/element__delete.css);
+@import url(./blocks/element/__delete/_hide/element__delete_hide.css);
+@import url(./blocks/element/__like-block/element__like-block.css);
+@import url(./blocks/element/__like-score/element__like-score.css);
+
+/*========import styles footer======*/
+@import url(./blocks/footer/footer.css);
+@import url(./blocks/footer/__title/footer__title.css);
+
+/*========import styles popup======*/
+@import url(./blocks/popup/popup.css);
+@import url(./blocks/popup/__close/popup__close.css);
+@import url(./blocks/popup/__container/popup__container.css);
+@import url(./blocks/popup/__valid-input/popup__valid-input.css);
+@import url(./blocks/popup/__input-text/popup__input-text.css);
+@import url(./blocks/popup/__input-text/_type/popup__input-text_type_error.css);
+@import url(./blocks/popup/__save/popup__save.css);
+@import url(./blocks/popup/__save/_type/popup__save_type_disabled.css);
+@import url(./blocks/popup/__save/_type/popup__save_type_loading.css);
+@import url(./blocks/popup/__title/popup__title.css);
+@import url(./blocks/popup/__form/popup__form.css);
+@import url(./blocks/popup/_opened/popup_opened.css);
+@import url(./blocks/popup/__frame/popup__frame.css);
+@import url(./blocks/popup/__image/popup__image.css);
+@import url(./blocks/popup/__caption/popup__caption.css);
+@import url(./blocks/popup/__error/popup__error.css);
+@import url(./blocks/popup/__error/_active/popup__error_active.css);
+@import url(./blocks/popup/__icon/popup__icon.css);
+@import url(./blocks/popup/__infoTooltip/popup__infoTooltip.css);
+
+/*========import styles entry======*/
+@import url(./blocks/entry/entry.css);
+@import url(./blocks/entry/__title/entry__title.css);
+@import url(./blocks/entry/__form/entry__form.css);
+@import url(./blocks/entry/__valid-input/entry__valid-input.css);
+@import url(./blocks/entry/__input/entry__input.css);
+@import url(./blocks/entry/__input/_type/entry__input_type_error.css);
+@import url(./blocks/entry/__error/entry__error.css);
+@import url(./blocks/entry/__error/_active/entry__error_active.css);
+@import url(./blocks/entry/__submit/entry__submit.css);
+@import url(./blocks/entry/__submit/_type/entry__submit_type_disabled.css);
+@import url(./blocks/entry/__submit/_type/entry__submit_type_loading.css);
+@import url(./blocks/entry/__link/entry__link.css);
+
+/*========import styles navbar======*/
+@import url(./blocks/navbar/navbar.css);
+@import url(./blocks/navbar/__link/navbar__link.css);
+@import url(./blocks/navbar/__info/navbar__info.css);
+@import url(./blocks/navbar/__mobile-icon/navbar__mobile-icon.css);
+
+/*========import styles mobile-menu======*/
+@import url(./blocks/mobile-menu/mobile-menu.css);
+@import url(./blocks/mobile-menu/__link/mobile-menu__link.css);
+@import url(./blocks/mobile-menu/__info/mobile-menu__info.css);
+@import url(./blocks/mobile-menu/_active/mobile-menu_active.css);

@@ -1,0 +1,22 @@
+.profile__edit {
+  max-width: 550px;
+  display: grid;
+  box-sizing: border-box;
+  align-items: baseline;
+  justify-content: flex-start;
+  row-gap: 16px;
+  column-gap: 18px;
+  grid-template-areas:
+    'name edit '
+    'description description';
+  margin: 22px 0px 25px;
+  padding: 0px;
+}
+
+@media screen and (max-width: 450px) {
+  .profile__edit {
+    margin: 26px 0px 31px;
+    row-gap: 10px;
+    column-gap: 0px;
+  }
+}

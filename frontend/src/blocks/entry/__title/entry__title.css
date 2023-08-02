@@ -1,0 +1,15 @@
+.entry__title {
+  margin: 60px auto 50px;
+  padding: 0px;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #ffffff;
+}
+@media screen and (max-width: 450px) {
+  .entry__title {
+    margin: 40px auto;
+  }
+}

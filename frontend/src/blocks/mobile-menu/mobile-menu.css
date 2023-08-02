@@ -1,0 +1,16 @@
+.mobile-menu {
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  width: 68.75%;
+  margin: 0px auto;
+  padding: 40px 0px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 18px;
+}
+@media screen and (max-width: 450px) {
+  .mobile-menu {
+    width: 100%;
+  }
+}

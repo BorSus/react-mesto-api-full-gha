@@ -1,0 +1,6 @@
+.entry__valid-input {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0px;
+}

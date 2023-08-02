@@ -1,0 +1,22 @@
+.entry__input {
+  box-sizing: border-box;
+  width: 358px;
+  margin: 0px auto;
+  padding: 0px;
+  min-height: 27px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  border: none;
+  background-color: black;
+  border-bottom: 2px solid #cccccc;
+}
+.entry__input:focus {
+  outline: 1px solid #cccccc;
+}
+@media screen and (max-width: 450px) {
+  .entry__input {
+    width: 260px;
+  }
+}

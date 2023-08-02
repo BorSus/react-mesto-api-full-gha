@@ -1,0 +1,13 @@
+.navbar {
+  box-sizing: border-box;
+  margin: 0px;
+  margin-top: 10px;
+  padding: 0px;
+  display: flex;
+  column-gap: 26px;
+}
+@media screen and (max-width: 450px) {
+  .navbar {
+    margin-right: 30px;
+  }
+}

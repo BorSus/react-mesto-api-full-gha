@@ -1,0 +1,12 @@
+.profile__avatar {
+  position: relative;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: auto 1 / 1;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  cursor: pointer;
+}

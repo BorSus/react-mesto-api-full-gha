@@ -1,0 +1,8 @@
+.popup__infoTooltip {
+  margin: 26px 0px 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 32px;
+}

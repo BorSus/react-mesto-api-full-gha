@@ -1,0 +1,9 @@
+.content {
+  width: 69.75%;
+  margin: 0px auto;
+}
+@media screen and (max-width: 450px) {
+  .content {
+    width: 88.125%;
+  }
+}

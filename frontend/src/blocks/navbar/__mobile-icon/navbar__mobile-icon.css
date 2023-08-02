@@ -1,0 +1,52 @@
+.navbar__mobile-icon {
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  transition: opacity 0.2s linear;
+}
+.navbar__mobile-icon:hover {
+  opacity: 0.6;
+}
+.navbar__mobile-icon span {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  height: 3px;
+  top: 10px;
+  transition: all 0.5s ease 0.1s;
+}
+
+.navbar__mobile-icon::before,
+.navbar__mobile-icon::after {
+  content: '';
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  left: 0;
+  transition: all 0.5s ease 0.1s;
+}
+.navbar__mobile-icon:before {
+  top: 0px;
+}
+.navbar__mobile-icon:after {
+  bottom: 0px;
+}
+
+.navbar__mobile-icon.active::before {
+  transform: rotate(45deg);
+  top: 10px;
+}
+.navbar__mobile-icon.active::after {
+  transform: rotate(-45deg);
+  top: 10px;
+}
+
+.navbar__mobile-icon.active span {
+  transform: scale(0);
+}

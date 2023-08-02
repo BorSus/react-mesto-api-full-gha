@@ -1,0 +1,14 @@
+.navbar__info {
+  margin: 0px;
+  padding: 0px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+}
+@media screen and (max-width: 750px) {
+  .navbar__info {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

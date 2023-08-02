@@ -1,0 +1,16 @@
+.entry__link {
+  margin: 0px;
+  margin-top: 15px;
+  padding: 0px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #ffffff;
+  transition: opacity 0.2s linear;
+}
+.entry__link:hover {
+  opacity: 0.6;
+}
