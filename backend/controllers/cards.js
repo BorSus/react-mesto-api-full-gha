@@ -13,7 +13,6 @@ function getAllCards(req, res, next) {
 function postCard(req, res, next) {
   const { name, link } = req.body;
   const owner = req.user._id;
-  // проверка owner лишняя, ее следует удалить, так как создание пользователя уже защищено авторизацией и проверять id не нужно OK
   Card.create({ name, link, owner })
     .then(card => res.status(201).send(card))
     .catch(err => {
@@ -43,12 +42,10 @@ async function deleteCard(req, res, next) {
     }
     await Card.deleteOne(card);
     res.status(200).send({
-      // Следует передать только сообщение об удалении OK
       message: `Карточка id[${id}] удалена`
     });
   } catch (err) {
     if (err.name === 'CastError') {
-      // Следует передать не саму ошибку, а только текст о том, что id некорректный OK
       next(new BadRequest(`Переданный id [${id}] карточки некорректный`));
       return;
     }
@@ -70,7 +67,6 @@ function putLike(req, res, next) {
     })
     .catch(err => {
       if (err.name === 'CastError') {
-        // Следует передать не саму ошибку, а только текст о том, что id некорректный OK
         next(new BadRequest(`Переданный id[${id}] карточки некорректный`));
         return;
       }
@@ -91,7 +87,6 @@ function deleteLike(req, res, next) {
       res.status(200).send(card);
     })
     .catch(err => {
-      // Следует передать не саму ошибку, а только текст о том, что id некорректный OK
       if (err.name === 'CastError') {
         next(new BadRequest(`Переданный id[${id}] карточки некорректный`));
         return;

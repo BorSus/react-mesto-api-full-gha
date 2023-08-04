@@ -82,7 +82,6 @@ app.use('/', checkAuthorization, require('./routes/users'));
 //  Подключение путей карточек  routes/cards
 app.use('/', checkAuthorization, require('./routes/cards'));
 //  Подключение путей Not Found /*
-// Роут неизвестного маршрута также следует защитить авторизацией OK
 app.use('/*', checkAuthorization, (req, res, next) => {
   next(new NotFound(`Такого url не существует`));
 });

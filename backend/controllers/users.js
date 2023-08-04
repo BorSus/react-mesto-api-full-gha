@@ -13,7 +13,6 @@ const Unauthorized = require('../utils/errors/unauthorized');
 async function postNewUser(req, res, next) {
   try {
     const { email, password, name, about, avatar } = req.body;
-    // Проверки на наличие полей в контроллерах следует удалить OK
     const hashPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ email, password: hashPassword, name, about, avatar });
     res.status(201).send({
@@ -27,7 +26,6 @@ async function postNewUser(req, res, next) {
       next(new NotUnique(`Пользователь с таким email уже зарегистрирован`));
       return;
     }
-    // проверка на ошибку CastError лишняя OK
     if (err.name === 'ValidationError') {
       next(
         new BadRequest(
@@ -46,7 +44,6 @@ async function postNewUser(req, res, next) {
 async function login(req, res, next) {
   const { email, password } = req.body;
   try {
-    // Проверки на наличие полей в контроллерах следует удалить OK
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
       throw new Unauthorized(`Неправильный email или password`);
@@ -75,7 +72,6 @@ function getCurrentUser(req, res, next) {
       if (!user) {
         throw new NotFound('Пользователь не найден.');
       }
-      // Статус 200 добавляется по дефолту, поэтому его можно не указывать OK
       res.send(user);
     })
     .catch(next);
@@ -102,7 +98,6 @@ function getUserById(req, res, next) {
         return;
       }
       if (err.name === 'CastError') {
-        // Следует передать не саму ошибку, а только текст о том, что id некорректный OK
         next(new BadRequest(`Переданный id [${id}] пользователя некорректный`));
         return;
       }
