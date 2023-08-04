@@ -60,11 +60,10 @@ async function login(req, res, next) {
     res.cookie('jwt', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
-      //sameSite: true
       secure: true,
       sameSite: 'none'
     });
-    res.status(200).send({ token });
+    res.status(200).send({ message: `Пользователь ${email} авторизирован. JWT сохранен в cookie` });
   } catch (err) {
     next(err);
   }

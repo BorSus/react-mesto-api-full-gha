@@ -70,7 +70,6 @@ function App() {
       if (!response) {
         return;
       }
-      console.log(response._id);
       setIsLoggedIn(true);
       setEmail(response.email);
     } catch (error) {

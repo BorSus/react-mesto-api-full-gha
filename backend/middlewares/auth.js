@@ -2,10 +2,14 @@ const jwt = require('jsonwebtoken');
 
 const Unauthorized = require('../utils/errors/unauthorized');
 
-const secretKey = 'Синхрофазотрон';
+const { NODE_ENV, JWT_SECRET } = process.env;
 
+console.log(NODE_ENV);
+console.log(JWT_SECRET);
 function createToken(payload) {
-  return jwt.sign({ payload }, secretKey, { expiresIn: '7d' });
+  return jwt.sign({ payload }, NODE_ENV === 'production' ? JWT_SECRET : 'development-secret-key', {
+    expiresIn: '7d'
+  });
 }
 
 function checkToken(token) {
@@ -13,7 +17,7 @@ function checkToken(token) {
     return false;
   }
   try {
-    return jwt.verify(token, secretKey);
+    return jwt.verify(token, JWT_SECRET);
   } catch (err) {
     return false;
   }

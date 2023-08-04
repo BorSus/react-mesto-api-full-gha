@@ -5,7 +5,7 @@ const allowedCors = [
   'localhost:3000'
 ];
 
-function cors(req, res, next) {
+function corsMiddleware(req, res, next) {
   // Сохраняем источник запроса в переменную origin
   const { origin } = req.headers;
   // Сохраняем тип запроса (HTTP-метод) в соответствующую переменную
@@ -29,5 +29,7 @@ function cors(req, res, next) {
     return res.end();
   }
 
-  next();
+  return next();
 }
+
+module.exports = { corsMiddleware };

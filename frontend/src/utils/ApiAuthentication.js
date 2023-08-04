@@ -1,4 +1,4 @@
-import { optionsApiAuthentication } from './constants.js';
+import { optionsApi } from './constants.js';
 class ApiAuthentication {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -65,4 +65,4 @@ class ApiAuthentication {
     return this._getResponseData(response);
   }
 }
-export const apiAuthentication = new ApiAuthentication(optionsApiAuthentication);
+export const apiAuthentication = new ApiAuthentication(optionsApi);
