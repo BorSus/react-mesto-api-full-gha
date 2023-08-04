@@ -4,8 +4,8 @@ const Unauthorized = require('../utils/errors/unauthorized');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-console.log(NODE_ENV);
-console.log(JWT_SECRET);
+// console.log(NODE_ENV);
+// console.log(JWT_SECRET);
 function createToken(payload) {
   return jwt.sign({ payload }, NODE_ENV === 'production' ? JWT_SECRET : 'development-secret-key', {
     expiresIn: '7d'

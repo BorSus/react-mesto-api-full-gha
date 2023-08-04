@@ -60,7 +60,12 @@ mongoose
 
 // подключаем логгер запросов
 app.use(requestLogger);
-
+//  Краш-тест сервера
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 //  Подключение путей авторизации
 //  POST /signup — создаёт пользователя
 app.post('/signup', validatorSchemaPostNewUser, postNewUser);
