@@ -32,18 +32,18 @@ const validatorSchemaGetUserById = celebrate({
 });
 // PATCH /users/me — обновляет профиль
 const validatorSchemaPatchUserInfo = celebrate({
+  // Все поля в этом объекте должны быть обязательными. OK!
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30)
+    name: Joi.string().min(2).max(30).required(),
+    about: Joi.string().min(2).max(30).required()
   })
 });
 // PATCH /users/me/avatar — обновляет аватар
+// Все поля в этом объекте должны быть обязательными. OK!
 const validatorSchemaPatchUserAvatar = celebrate({
-  body: Joi.object()
-    .keys({
-      avatar: Joi.string().regex(regexURL)
-    })
-    .required()
+  body: Joi.object().keys({
+    avatar: Joi.string().regex(regexURL).required()
+  })
 });
 // Cards
 const validatorSchemaPostCard = celebrate({

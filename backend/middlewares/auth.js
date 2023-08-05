@@ -9,11 +9,16 @@ const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'development-secret-k
 // console.log(NODE_ENV);
 // console.log(JWT_SECRET);
 function createToken(payload) {
-  return jwt.sign({ payload }, secretKey, {
+  return jwt.sign(payload, secretKey, {
     expiresIn: '7d'
   });
 }
 
+function checkToken(token) {
+  return jwt.verify(token, secretKey);
+}
+
+/*
 function checkToken(token) {
   if (!token) {
     return false;
@@ -24,20 +29,20 @@ function checkToken(token) {
     return false;
   }
 }
-
+*/
 function checkAuthorization(req, res, next) {
   const token = req.cookies.jwt;
   if (!token) {
-    throw new Unauthorized(`JWT из cookies не получен`);
+    return next(new Unauthorized(`JWT из cookies не получен`));
   }
-  const payload = checkToken(token);
-  if (!payload) {
-    throw new Unauthorized(`Токен не прошел проверку`);
+  let payload;
+  try {
+    payload = checkToken(token);
+  } catch (_) {
+    return next(new Unauthorized(`Токен не прошел проверку`));
   }
-
-  req.user = payload.payload;
-
-  next();
+  req.user = payload;
+  return next();
 }
 
 module.exports = { createToken, checkToken, checkAuthorization };
