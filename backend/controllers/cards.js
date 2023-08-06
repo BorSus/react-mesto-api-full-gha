@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const Card = require('../models/card');
 const NotFound = require('../utils/errors/not-found');
 const BadRequest = require('../utils/errors/bad-request');
@@ -17,7 +19,7 @@ function postCard(req, res, next) {
     .then(card => res.status(201).send(card))
     .catch(err => {
       // проверка на ошибку CastError лишняя OK
-      if (err.name === 'ValidationError') {
+      if (err instanceof mongoose.Error.ValidationError) {
         next(
           new BadRequest(
             `${Object.values(err.errors)
@@ -40,16 +42,16 @@ async function deleteCard(req, res, next) {
     if (card.owner.toString() !== owner) {
       throw new Forbidden(`Запрещено удалять карточки чужих авторов`);
     }
-    await Card.deleteOne(card);
+    card.deleteOne();
     res.status(200).send({
       message: `Карточка id[${id}] удалена`
     });
   } catch (err) {
-    if (err.name === 'CastError') {
+    if (err instanceof mongoose.Error.CastError) {
       next(new BadRequest(`Переданный id [${id}] карточки некорректный`));
       return;
     }
-    if (err.name === 'DocumentNotFoundError') {
+    if (err instanceof mongoose.Error.DocumentNotFoundError) {
       next(new NotFound(`Карточка [${id}] не найдена`));
       return;
     }
@@ -66,11 +68,11 @@ function putLike(req, res, next) {
       res.status(200).send(card);
     })
     .catch(err => {
-      if (err.name === 'CastError') {
+      if (err instanceof mongoose.Error.CastError) {
         next(new BadRequest(`Переданный id[${id}] карточки некорректный`));
         return;
       }
-      if (err.name === 'DocumentNotFoundError') {
+      if (err instanceof mongoose.Error.DocumentNotFoundError) {
         next(new NotFound(`Карточка  id[${id}] не найдена`));
         return;
       }
@@ -87,11 +89,11 @@ function deleteLike(req, res, next) {
       res.status(200).send(card);
     })
     .catch(err => {
-      if (err.name === 'CastError') {
+      if (err instanceof mongoose.Error.CastError) {
         next(new BadRequest(`Переданный id[${id}] карточки некорректный`));
         return;
       }
-      if (err.name === 'DocumentNotFoundError') {
+      if (err instanceof mongoose.Error.DocumentNotFoundError) {
         next(new NotFound(`Карточка  ${id} не найдена`));
         return;
       }

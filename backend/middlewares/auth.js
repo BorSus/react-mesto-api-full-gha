@@ -2,46 +2,33 @@ const jwt = require('jsonwebtoken');
 
 const Unauthorized = require('../utils/errors/unauthorized');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { secretKey } = require('../config');
 
-const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'development-secret-key';
-// console.log(secretKey);
-// console.log(NODE_ENV);
-// console.log(JWT_SECRET);
 function createToken(payload) {
   return jwt.sign(payload, secretKey, {
     expiresIn: '7d'
   });
 }
-
+// Эта проверка и обертка ниже ненужны — сделайте как функция выше. OK!
 function checkToken(token) {
   return jwt.verify(token, secretKey);
 }
 
-/*
-function checkToken(token) {
-  if (!token) {
-    return false;
-  }
-  try {
-    return jwt.verify(token, secretKey);
-  } catch (err) {
-    return false;
-  }
-}
-*/
 function checkAuthorization(req, res, next) {
   const token = req.cookies.jwt;
   if (!token) {
+    // Ошибку в центральный обработчик нужно передавать напрямую при помощи функции next. OK!
+    // работу функции нужно прервать при помощи оператора return
     return next(new Unauthorized(`JWT из cookies не получен`));
   }
-  let payload;
+  //let payload;
   try {
-    payload = checkToken(token);
+    const payload = checkToken(token);
+    req.user = payload;
   } catch (_) {
     return next(new Unauthorized(`Токен не прошел проверку`));
   }
-  req.user = payload;
+
   return next();
 }
 

@@ -1,9 +1,9 @@
 const bcrypt = require('bcryptjs');
 
+const mongoose = require('mongoose');
+
 const User = require('../models/user');
-
 const { createToken } = require('../middlewares/auth');
-
 const NotFound = require('../utils/errors/not-found');
 const BadRequest = require('../utils/errors/bad-request');
 const NotUnique = require('../utils/errors/not-unique');
@@ -26,7 +26,7 @@ async function postNewUser(req, res, next) {
       next(new NotUnique(`Пользователь с таким email уже зарегистрирован`));
       return;
     }
-    if (err.name === 'ValidationError') {
+    if (err instanceof mongoose.Error.ValidationError) {
       next(
         new BadRequest(
           `${Object.values(err.errors)
@@ -65,44 +65,81 @@ async function login(req, res, next) {
     next(err);
   }
 }
+// Функция поиска пользователя по id и обработкa ошибок
+async function searchUserById(id) {
+  try {
+    const user = await User.findById(id).orFail();
+    return user;
+  } catch (err) {
+    if (err instanceof mongoose.Error.CastError) {
+      throw new BadRequest(`Переданный id [${id}] пользователя некорректный`);
+    }
+    if (err instanceof mongoose.Error.DocumentNotFoundError) {
+      throw new NotFound(`Пользователь  ${id} не найден`);
+    }
+  }
+}
+// Функция кеширования поиска пользователя по ID
+const cacheSearch = func => {
+  let cache = new Map();
+  return async function (x) {
+    if (cache.has(x)) {
+      console.log('Информация о пользователе получена из кеша');
+      return cache.get(x);
+    }
+    let result = await func(x);
+    cache.set(x, result);
+    console.log('Информация о пользователе получена из запроса к БД');
+    return result;
+  };
+};
+searchUserById = cacheSearch(searchUserById);
 // GET /users/me
-function getCurrentUser(req, res, next) {
-  User.findById(req.user._id)
-    .then(user => {
-      if (!user) {
-        throw new NotFound('Пользователь не найден.');
-      }
-      res.send(user);
-    })
-    .catch(next);
+async function getCurrentUser(req, res, next) {
+  const id = req.user._id;
+  //searchUserById = cacheSearch(searchUserById);
+  try {
+    const user = await searchUserById(id, next);
+    return res.send(user);
+  } catch (err) {
+    next(err);
+  }
 }
-
-//  GET /users — возвращает всех пользователей
-function getAllUsers(req, res, next) {
-  User.find({})
-    .then(users => res.status(200).send(users))
-    .catch(next);
-}
-
 //  GET /users/:userId - возвращает пользователя по _id
-function getUserById(req, res, next) {
+async function getUserById(req, res, next) {
   const { id } = req.params;
+
+  try {
+    const user = await searchUserById(id);
+    return res.send(user);
+  } catch (err) {
+    next(err);
+  }
+
+  /*
   User.findById(id)
     .orFail()
     .then(user => {
-      res.status(200).send(user);
+      res.send(user);
     })
     .catch(err => {
-      if (err.name === 'DocumentNotFoundError') {
+      if (err instanceof mongoose.Error.DocumentNotFoundError) {
         next(new NotFound(`Пользователь  ${id} не найден`));
         return;
       }
-      if (err.name === 'CastError') {
+      if (err instanceof mongoose.Error.CastError) {
         next(new BadRequest(`Переданный id [${id}] пользователя некорректный`));
         return;
       }
       next(err);
     });
+    */
+}
+//  GET /users — возвращает всех пользователей
+function getAllUsers(req, res, next) {
+  User.find({})
+    .then(users => res.status(200).send(users))
+    .catch(next);
 }
 
 // PATCH /users/me — обновляет профиль
@@ -112,8 +149,7 @@ function patchUserInfo(req, res, next) {
     .orFail()
     .then(user => res.status(200).send(user))
     .catch(err => {
-      // проверка на ошибку CastError лишняя OK
-      if (err.name === 'ValidationError') {
+      if (err instanceof mongoose.Error.ValidationError) {
         next(
           new BadRequest(
             `${Object.values(err.errors)
@@ -123,7 +159,7 @@ function patchUserInfo(req, res, next) {
         );
         return;
       }
-      if (err.name === 'DocumentNotFoundError') {
+      if (err instanceof mongoose.Error.DocumentNotFoundError) {
         next(new NotFound(`Пользователь не найден`));
         return;
       }
@@ -137,8 +173,7 @@ function patchUserAvatar(req, res, next) {
     .orFail()
     .then(user => res.status(200).send(user))
     .catch(err => {
-      // проверка на ошибку CastError лишняя OK
-      if (err.name === 'ValidationError') {
+      if (err instanceof mongoose.Error.ValidationError) {
         next(
           new BadRequest(
             `${Object.values(err.errors)
@@ -148,7 +183,7 @@ function patchUserAvatar(req, res, next) {
         );
         return;
       }
-      if (err.name === 'DocumentNotFoundError') {
+      if (err instanceof mongoose.Error.DocumentNotFoundError) {
         next(new NotFound(`Пользователь не найден`));
         return;
       }
