@@ -21,7 +21,7 @@ function checkAuthorization(req, res, next) {
     // работу функции нужно прервать при помощи оператора return
     return next(new Unauthorized(`JWT из cookies не получен`));
   }
-  //let payload;
+
   try {
     const payload = checkToken(token);
     req.user = payload;

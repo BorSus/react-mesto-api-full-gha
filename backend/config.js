@@ -1,4 +1,4 @@
-//Рекомендую создать в корне проекта файл с конфигурацией приложения. OK!
+// Рекомендую создать в корне проекта файл с конфигурацией приложения. OK!
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const secretKey = NODE_ENV === 'production' ? JWT_SECRET : 'development-secret-key';

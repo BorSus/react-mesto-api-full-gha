@@ -26,7 +26,7 @@ const { checkAuthorization } = require('./middlewares/auth');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { originUrlCORS, PORT, DB_URL } = require('./config.js');
+const { originUrlCORS, PORT, DB_URL } = require('./config');
 
 const NotFound = require('./utils/errors/not-found');
 
